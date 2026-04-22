@@ -19,5 +19,8 @@ Also I did this by using a state variable that shows what should be placed next(
 
 6. 
 I set the winning conditions of all the diagnols, horizontals, and verticals pattern in a new calculateWinner function
+so when ever a player fulfills the winning condition, the game ends and they're declared as the winner
 
+7.
+I logged everytime a player made a move so now it displayed who placed the block where 
 
