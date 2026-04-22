@@ -1,0 +1,23 @@
+1. 
+I've started the tutorial and commented out all of the basic template code to 
+replace with the code they give out. Interesting thing I noted is that their index.js is called
+main.jsx in my src folder
+
+2.
+Now I've made the basic board with the buttons that turns to X's when clicked by creating an array with null or X's
+and assigned each button to one of the item in the array so when it changes it updates in the array as well
+
+3. 
+I added a function that rotates between adding O and X when clicked on one of the squares. 
+
+4. 
+I allowed the user to click to change the button into X's by calling it through the board component and not the sqaure component
+
+5.
+I used an if statment to check which letter, X or O should be placed next and placed within the board component. 
+Also I did this by using a state variable that shows what should be placed next(boolean for X's)
+
+6. 
+I set the winning conditions of all the diagnols, horizontals, and verticals pattern in a new calculateWinner function
+
+
