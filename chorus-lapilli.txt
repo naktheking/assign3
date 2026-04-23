@@ -1,6 +1,21 @@
 1. 
 I first attempted to lock players out once they've played 3 move by making a variable
-and return as soon as the players hit that limit, but I realized players needs to mvoe pieces
+and return as soon as the players hit that limit, but I realized players needs to move existing pieces
 so now I'm going to implement a total pieces placed and switch to movement mode instead of 
 placement mode
 
+2. 
+I have a variable of the total amount of pieces placed by both players and once it reached 6, I use if statements 
+to switch to movement mode where no new pieces can be placed and can only be moved. 
+But now I need a way to remember which piece the player clicked on previously so I can move that piece
+
+3. 
+I created a state varible. When the player clicks on it for the first time, it remembers which piece is clicked
+but doesn't move the pieces. But when the user clicks on a second spot with nothing in it, the function clears the 
+first spot in memory and create a new symbol at the new spot.
+
+4. 
+Now I have check if the user put in a valid move of if the player has a center piece(in position 4), then they have to move it
+and that each pieces can only move to its adjacent places. 
+So I've built 2 helper functions that would check if the next move if valid from the player and they run
+before placing down the pieces. 
