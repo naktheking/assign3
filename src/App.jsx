@@ -8,18 +8,84 @@ function Square({ value, onSquareClick }) {
   );
 }
 
-function Board({ xIsNext, squares, onPlay }) {
+function centerSquareRule(selectedSquare, squares, nextSquares, xIsNext){
+  if (calculateWinner(nextSquares)) {
+    return true;
+  }
+  const playerOwnsCenter = (xIsNext && squares[4] === 'X') || (!xIsNext && squares[4] === 'O');
+  if (!playerOwnsCenter) {
+    return true; 
+  } else {
+    if (selectedSquare === 4) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+function adjacencyRule(selectedPiece, index){
+  const adjacencyMap = {
+    0: [1, 3, 4],
+    1: [0, 2, 3, 4, 5],
+    2: [1, 4, 5],
+    3: [0, 1, 4, 6, 7],
+    4: [0, 1, 2, 3, 5, 6, 7, 8],
+    5: [1, 2, 4, 7, 8],
+    6: [3, 4, 7],
+    7: [3, 4, 5, 6, 8],
+    8: [4, 5, 7]
+  };
+
+  if(adjacencyMap[index].includes(selectedPiece)){
+    return true;
+  }
+  return false;
+}
+
+
+function Board({ xIsNext, squares, onPlay}) {
+  const [selectedPiece, setSelectedPiece] = useState(null);
   function handleClick(i) {
-    if (calculateWinner(squares) || squares[i]) {
-      return;
+
+    let totalPieces = 0;
+    for(let j = 0; j < squares.length; j++){
+      if(squares[j] == 'X' || squares[j] == 'O'){
+        totalPieces += 1;
+      }
     }
     const nextSquares = squares.slice();
-    if (xIsNext) {
-      nextSquares[i] = 'X';
+
+    if(totalPieces < 6){
+      if (calculateWinner(squares) || squares[i]) {
+        return;
+      }
+      if (xIsNext) {
+        nextSquares[i] = 'X';
+      } else {
+        nextSquares[i] = 'O';
+      }
+      onPlay(nextSquares);
     } else {
-      nextSquares[i] = 'O';
+      if (calculateWinner(squares)) {
+        return;
+      }
+      //put down a piece
+      if(selectedPiece != null && squares[i]===null){
+        nextSquares[selectedPiece] = null;
+        xIsNext ? nextSquares[i]='X' : nextSquares[i]='O';
+        if(adjacencyRule(selectedPiece, i) && centerSquareRule(selectedPiece, squares, nextSquares, xIsNext)){
+          setSelectedPiece(null);
+          onPlay(nextSquares);
+        } else {
+          setSelectedPiece(null);  
+        }
+      } else { //picked up a piece
+        if((xIsNext && squares[i] == 'X') || !xIsNext && squares[i]=='O'){
+          setSelectedPiece(i);
+        }
+      }
     }
-    onPlay(nextSquares);
   }
 
   const winner = calculateWinner(squares);

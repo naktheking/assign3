@@ -1,0 +1,6 @@
+1. 
+I first attempted to lock players out once they've played 3 move by making a variable
+and return as soon as the players hit that limit, but I realized players needs to mvoe pieces
+so now I'm going to implement a total pieces placed and switch to movement mode instead of 
+placement mode
+
